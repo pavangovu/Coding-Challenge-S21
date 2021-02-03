@@ -37,13 +37,13 @@ class GenomeMapBackup implements CgviewConstants
       Cgview cgview = new Cgview(length);
       
       //some optional settings
-      cgview.setWidth(2000);
-      cgview.setHeight(2000);
+      cgview.setWidth(1350);
+      cgview.setHeight(1080);
       cgview.setBackboneRadius(350.0f);
       cgview.setTitle("Tomato Curly Stunt Virus");
       cgview.setTitleFont(new Font("SansSerif", Font.BOLD, 22));
       cgview.setLabelPlacementQuality(20);
-      cgview.setShowWarning(true);
+      cgview.setShowWarning(false);
       cgview.setLabelLineLength(8.0d);
       cgview.setLabelLineThickness(0.5f);
    
@@ -51,12 +51,30 @@ class GenomeMapBackup implements CgviewConstants
       FeatureSlot featureSlot = new FeatureSlot(cgview, DIRECT_STRAND);
    
       //create random sequence features
+      int alternate=1;
+      
       for (int i = 0; i <sequences.size(); i++) {
          int j = Math.round((float)((float)(length - 2) * Math.random())) + 1;
          
          //a Feature to add to our FeatureSlot
          Feature feature = new Feature(featureSlot, sequences.get(i)+""+i);
-      
+         
+         if(alternate==1)
+         {
+            feature.setColor(Color.blue);
+            alternate++;
+         }
+         else if(alternate==2)
+         {
+            feature.setColor(Color.red);
+            alternate++;
+         } 
+         else if(alternate==3)
+         {
+            feature.setColor(Color.green);
+            alternate=1;
+         }
+         
          //a single FeatureRange to add the Feature
          int start=0, stop=0;
          
