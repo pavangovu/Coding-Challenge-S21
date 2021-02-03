@@ -2,6 +2,7 @@ import ca.ualberta.stothard.cgview.*;
 import java.io.*;
 import java.util.*;
 import java.nio.file.*;
+import java.awt.*;
 
 class GenomeMapBackup implements CgviewConstants
 { 
@@ -11,7 +12,7 @@ class GenomeMapBackup implements CgviewConstants
    
       Scanner input = new Scanner(genomeFile);        
       boolean sequenceFound=false;
-      List<String> sequences = new ArrayList<String>();
+      java.util.List<String> sequences = new ArrayList<String>();
          
       while(input.hasNext())
       {
@@ -32,14 +33,15 @@ class GenomeMapBackup implements CgviewConstants
       
       //System.out.println(sequences.get(sequences.size()-1));   
       
-      int length = 2770;
+      int length = 2765;
       Cgview cgview = new Cgview(length);
       
       //some optional settings
-      cgview.setWidth(2400);
-      cgview.setHeight(2400);
-      cgview.setBackboneRadius(640.0f);
+      cgview.setWidth(2000);
+      cgview.setHeight(2000);
+      cgview.setBackboneRadius(350.0f);
       cgview.setTitle("Tomato Curly Stunt Virus");
+      cgview.setTitleFont(new Font("SansSerif", Font.BOLD, 22));
       cgview.setLabelPlacementQuality(20);
       cgview.setShowWarning(true);
       cgview.setLabelLineLength(8.0d);
@@ -56,7 +58,21 @@ class GenomeMapBackup implements CgviewConstants
          Feature feature = new Feature(featureSlot, sequences.get(i)+""+i);
       
          //a single FeatureRange to add the Feature
-         FeatureRange featureRange = new FeatureRange (feature,i*10+1, (i+1)*10);
+         int start=0, stop=0;
+         
+         if(i==276)
+         {
+            start=i*10+1;
+            stop=i*10+5;
+         }
+         
+         else
+         {
+            start=i*10+1;
+            stop=(i+1)*10;
+         }
+         FeatureRange featureRange = new FeatureRange (feature,start, stop);
+         
          featureRange.setDecoration(DECORATION_CLOCKWISE_ARROW);
           
       }
