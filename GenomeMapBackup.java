@@ -32,15 +32,15 @@ class GenomeMapBackup implements CgviewConstants
       
       //System.out.println(sequences.get(sequences.size()-1));   
       
-      int length = 9000;
+      int length = 2770;
       Cgview cgview = new Cgview(length);
       
       //some optional settings
-      cgview.setWidth(600);
-      cgview.setHeight(600);
-      cgview.setBackboneRadius(160.0f);
-      cgview.setTitle("Tomato curly stunt virus");
-      cgview.setLabelPlacementQuality(10);
+      cgview.setWidth(2400);
+      cgview.setHeight(2400);
+      cgview.setBackboneRadius(640.0f);
+      cgview.setTitle("Tomato Curly Stunt Virus");
+      cgview.setLabelPlacementQuality(20);
       cgview.setShowWarning(true);
       cgview.setLabelLineLength(8.0d);
       cgview.setLabelLineThickness(0.5f);
@@ -49,21 +49,22 @@ class GenomeMapBackup implements CgviewConstants
       FeatureSlot featureSlot = new FeatureSlot(cgview, DIRECT_STRAND);
    
       //create random sequence features
-      for (int i = 0; i < sequences.size(); i++) {
-      
+      for (int i = 0; i <sequences.size(); i++) {
          int j = Math.round((float)((float)(length - 2) * Math.random())) + 1;
          
          //a Feature to add to our FeatureSlot
-         Feature feature = new Feature(featureSlot, sequences.get(i));
+         Feature feature = new Feature(featureSlot, sequences.get(i)+""+i);
       
          //a single FeatureRange to add the Feature
-         FeatureRange featureRange = new FeatureRange (feature, j, j + 1);
-         featureRange.setDecoration(DECORATION_CLOCKWISE_ARROW);  
+         FeatureRange featureRange = new FeatureRange (feature,i*10+1, (i+1)*10);
+         featureRange.setDecoration(DECORATION_CLOCKWISE_ARROW);
+          
       }
       
       try {
          //create a PNG file
          CgviewIO.writeToPNGFile(cgview, ".\\CgviewTest1.png");
+         System.exit(0);
       }
       catch (IOException e) {
          e.printStackTrace(System.err);
